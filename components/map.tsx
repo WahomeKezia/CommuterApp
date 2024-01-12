@@ -29,7 +29,7 @@ export default function Map() {
     }),
     []
   );
-  const onLoad = useCallback((map) => (mapRef.current = map), []);
+  const onLoad = useCallback((map: GoogleMap | undefined) => (mapRef.current = map), []);
   const houses = useMemo(() => generateHouses(center), [center]);
 
   const fetchDirections = (house: LatLngLiteral) => {
@@ -90,11 +90,10 @@ export default function Map() {
                 position={office}
                 icon="https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png"
               />
-
-              <MarkerClusterer>
+         <MarkerClusterer>
                 {(clusterer) =>
                   houses.map((house) => (
-                    <Marker
+        <Marker
                       key={house.lat}
                       position={house}
                       clusterer={clusterer}
@@ -105,7 +104,7 @@ export default function Map() {
                   ))
                 }
               </MarkerClusterer>
-
+              
               <Circle center={office} radius={15000} options={closeOptions} />
               <Circle center={office} radius={30000} options={middleOptions} />
               <Circle center={office} radius={45000} options={farOptions} />
